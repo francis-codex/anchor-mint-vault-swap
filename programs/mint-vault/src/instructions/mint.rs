@@ -54,12 +54,12 @@ pub struct MintFromCollection<'info> {
 impl MintFromCollection<'_> {
     /// validation helper for our IX
     pub fn validate(&self) -> Result<()> {
-        // collection contains items to be minted from
+        // Collection contains items to be minted from
         if self.collection_data.items_available == 0 {
             return Err(error!(CreateErrorCode::CollectionMintedOut));
         }
 
-        return Ok(());
+        Ok(())
     }
 
     /// CPI into mpl_core program and mint our asset.

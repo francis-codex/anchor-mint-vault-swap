@@ -58,14 +58,15 @@ pub struct Purchase<'info> {
 impl Purchase<'_> {
     /// validation helper for our IX
     pub fn validate(&self) -> Result<()> {
-        //  using a constant rate of 2 SOL to buy/swap any asset in our vaults
-        // check if user has required lamports
+        // Using a constant rate of 2 SOL to buy/swap any asset in our vaults
+        // Check if user has required lamports
+        let purchase_fee = 2 * LAMPORTS_PER_SOL;
         let user_lamports = self.buyer.lamports();
-        if user_lamports < self.protocol.rent {
+        if user_lamports < purchase_fee {
             return Err(error!(CreateErrorCode::InsufficientLamportsForPurchase));
         }
 
-        return Ok(());
+        Ok(())
     }
 
     /// buy a MPL core asset listed on the marketplace

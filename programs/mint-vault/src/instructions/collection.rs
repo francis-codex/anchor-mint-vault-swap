@@ -59,7 +59,7 @@ pub struct CreateCollection<'info> {
 impl CreateCollection<'_> {
     /// validation helper for our IX
     pub fn validate(&self) -> Result<()> {
-        return Ok(());
+        Ok(())
     }
 
     /// Mint a collection asset.
@@ -69,7 +69,7 @@ impl CreateCollection<'_> {
         ctx: Context<CreateCollection>,
         params: CreateCollectionParams,
     ) -> Result<()> {
-        // update our collection data
+        // Update our collection data
         let collection_data = &mut ctx.accounts.collection_data;
 
         **collection_data = CollectionData::new(
@@ -79,7 +79,7 @@ impl CreateCollection<'_> {
             ctx.accounts.collection.key(),
         );
 
-        //CPI into mpl_core program and create collection
+        // CPI into mpl_core program and create collection
         CreateCollectionV1CpiBuilder::new(&ctx.accounts.core_program)
             .collection(&ctx.accounts.collection)
             .payer(&ctx.accounts.payer)

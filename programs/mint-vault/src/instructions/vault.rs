@@ -55,14 +55,14 @@ pub struct LockAssetInVault<'info> {
 impl LockAssetInVault<'_> {
     /// validation helper for our IX
     pub fn validate(&self) -> Result<()> {
-        // when locking asset with program, user must pay rental fee of one sol
-        // check if user has required lamports
+        // When locking asset with program, user must pay rental fee of 1 SOL
+        // Check if user has required lamports
         let user_lamports = self.payer.lamports();
         if user_lamports < self.protocol.rent {
             return Err(error!(CreateErrorCode::InsufficientLamportsForRent));
         }
 
-        return Ok(());
+        Ok(())
     }
 
     /// lock asset in vault
@@ -71,7 +71,7 @@ impl LockAssetInVault<'_> {
     pub fn lock_asset_in_vault(ctx: Context<LockAssetInVault>) -> Result<()> {
         let protocol = &mut ctx.accounts.protocol;
 
-        // take fee of one sol for locking asset
+        // Take fee of 1 SOL for locking asset
         let cpi_program = ctx.accounts.system_program.to_account_info();
         let protocol_cpi_accounts = SOLTransfer {
             from: ctx.accounts.payer.to_account_info(),

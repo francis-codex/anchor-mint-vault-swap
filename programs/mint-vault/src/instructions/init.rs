@@ -47,7 +47,7 @@ pub struct Init<'info> {
 impl Init<'_> {
     /// validation helper for our IX
     pub fn validate(&self) -> Result<()> {
-        return Ok(());
+        Ok(())
     }
 
     /// Initialize the Asset Manager escrow account
@@ -61,7 +61,7 @@ impl Init<'_> {
 
         let protocol = &mut ctx.accounts.protocol;
         protocol.treasury = ctx.accounts.treasury.key();
-        protocol.rent = 1 * LAMPORTS_PER_SOL; // ! fixed rental fees
+        protocol.rent = 1 * LAMPORTS_PER_SOL; // Fixed rental fee of 1 SOL
 
         Ok(())
     }
